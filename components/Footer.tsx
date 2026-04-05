@@ -3,97 +3,105 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-// Marquee komponen reusable
-function Marquee({ text, speed = 25 }: { text: string; speed?: number }) {
-  const items = Array.from({ length: 12 }, (_, i) => i);
-  return (
-    <div className="overflow-hidden whitespace-nowrap flex">
-      <motion.div
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-        className="flex shrink-0"
-      >
-        {items.map((i) => (
-          <span key={i} className="text-xs tracking-[0.25em] font-black text-gray-700 px-6">
-            {text} —
-          </span>
-        ))}
-      </motion.div>
-      {/* Duplikat untuk seamless loop */}
-      <motion.div
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: speed, repeat: Infinity, ease: "linear" }}
-        className="flex shrink-0"
-        aria-hidden
-      >
-        {items.map((i) => (
-          <span key={i} className="text-xs tracking-[0.25em] font-black text-gray-700 px-6">
-            {text} —
-          </span>
-        ))}
-      </motion.div>
-    </div>
-  );
-}
-
 export default function Footer() {
   return (
     <footer className="bg-[#050505] text-white overflow-hidden">
 
-      {/* ── Marquee scrolling name ── */}
-      <div className="border-t border-gray-900 py-4">
-        <Marquee text="BADAR ZAKI BARADJA" speed={30} />
-      </div>
-
-      {/* ── Main footer content ── */}
+      {/* ── Upper footer: 2 kolom ── */}
       <div className="max-w-7xl mx-auto px-8 pt-20 pb-10">
-        <div className="grid md:grid-cols-[1fr_auto_auto] gap-12 items-start mb-20">
+        <div className="grid md:grid-cols-2 gap-12 items-start mb-16">
 
-          {/* Left: identity */}
+          {/* Kiri: Logo + nama + role + kota + tombol */}
           <div>
-            <p className="text-xs tracking-widest text-[#90ff4f] font-bold mb-6">Let's Connect ✦</p>
-            {/* Logo/Inisial sama seperti navbar */}
-            <div className="text-5xl font-black tracking-tighter mb-2">
-              BZ<span className="text-[#90ff4f]">!</span>
+            {/* Logo — sama persis seperti navbar */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-[#90ff4f] flex items-center justify-center rounded">
+                <span className="text-black text-sm font-black tracking-tighter">BZ</span>
+              </div>
+              <div>
+                <div className="text-[#90ff4f] text-sm font-black tracking-widest leading-tight">
+                  BADAR ZAKI BARADJA
+                </div>
+                <div className="text-gray-500 text-[10px] font-black tracking-widest">
+                  FRONTEND DEVELOPER
+                </div>
+              </div>
             </div>
-            <p className="text-gray-500 text-xs font-bold tracking-widest mt-4">FRONTEND DEVELOPER</p>
-            <p className="text-gray-700 text-xs mt-1 tracking-widest">BANDUNG, INDONESIA</p>
+
+            <p className="text-gray-500 text-xs font-bold tracking-widest mt-6 mb-8">
+              BANDUNG, INDONESIA
+            </p>
 
             <Link
               href="/contact"
-              className="inline-block mt-8 px-6 py-3 border border-gray-700 text-xs font-black tracking-widest hover:border-[#90ff4f] hover:text-[#90ff4f] transition-all duration-300 rounded-md"
+              className="inline-block px-8 py-3 bg-[#90ff4f] text-black font-black tracking-widest text-xs hover:bg-white transition-all duration-300 rounded-md"
             >
               CONTACT ME
             </Link>
           </div>
 
-          {/* Center: nav */}
-          <div className="flex flex-col gap-4">
-            {["HOME", "ABOUT", "PROJECTS", "CONTACT"].map((item) => (
+          {/* Kanan: Nav links besar */}
+          <div className="flex flex-col gap-1 md:items-start">
+            {[
+              { label: "HOME", href: "/" },
+              { label: "ABOUT", href: "/about" },
+              { label: "PROJECTS", href: "/projects" },
+              { label: "CONTACT", href: "/contact" },
+            ].map((item) => (
               <Link
-                key={item}
-                href={item === "HOME" ? "/" : `/${item.toLowerCase()}`}
-                className="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors duration-200"
+                key={item.label}
+                href={item.href}
+                className="text-4xl md:text-5xl font-black tracking-tight text-white hover:text-[#90ff4f] transition-colors duration-200 leading-tight"
               >
-                {item}
+                {item.label}
               </Link>
             ))}
           </div>
+        </div>
 
-          {/* Right: socials */}
-          <div className="flex flex-col gap-4">
-            <a href="https://instagram.com/badarbaradja_" target="_blank" rel="noopener noreferrer" className="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors duration-200">INSTAGRAM</a>
-            <a href="https://linkedin.com/in/badar-baradja-5b1bb820a/" target="_blank" rel="noopener noreferrer" className="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors duration-200">LINKEDIN</a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-xs font-black tracking-widest text-gray-500 hover:text-white transition-colors duration-200">GITHUB</a>
+        {/* Bottom bar */}
+        <div className="border-t border-gray-800 pt-8 flex justify-between items-center">
+          <span className="text-[10px] font-bold tracking-widest text-gray-600">
+            © 2026 ALL RIGHTS RESERVED
+          </span>
+          <div className="flex gap-6">
+            {[
+              { label: "INSTAGRAM", href: "https://instagram.com/badarbaradja_" },
+              { label: "LINKEDIN", href: "https://linkedin.com/in/badar-baradja-5b1bb820a/" },
+              { label: "GITHUB", href: "https://github.com" },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] font-black tracking-widest text-gray-500 hover:text-white transition-colors duration-200"
+              >
+                {s.label}
+              </a>
+            ))}
           </div>
         </div>
-
-        {/* Bottom */}
-        <div className="border-t border-gray-900 pt-8 flex justify-between items-center text-[10px] font-bold tracking-widest text-gray-700">
-          <span>© 2026 ALL RIGHTS RESERVED</span>
-          <span>BADAR ZAKI BARADJA</span>
-        </div>
       </div>
+
+      {/* ── Marquee bawah — background HIJAU, teks hitam besar ── */}
+      <div className="bg-[#90ff4f] overflow-hidden mt-10">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="flex whitespace-nowrap py-6"
+        >
+          {Array.from({ length: 20 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-5xl md:text-7xl font-black text-black tracking-tighter px-6 shrink-0"
+            >
+              BADAR ZAKI BARADJA -&nbsp;
+            </span>
+          ))}
+        </motion.div>
+      </div>
+
     </footer>
   );
 }
