@@ -3,19 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-function RevealOnScroll({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 48 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+// Custom easing for premium fluid feel
+const fluidEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const allProjects = [
   {
@@ -70,121 +59,174 @@ const allProjects = [
 
 export default function ProjectsPage() {
   return (
-    <main className="bg-[#050505] text-white min-h-screen">
+    <main className="bg-[#050505] text-white min-h-screen selection:bg-[#90ff4f] selection:text-black">
 
-      {/* ── HERO ── */}
-      <section className="pt-40 pb-24 px-6 md:px-20 max-w-7xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs tracking-widest text-gray-500 font-black mb-6"
-        >
-          FEATURED PROJECTS
-        </motion.p>
-
-        <div className="overflow-hidden">
-          <motion.h1
-            initial={{ y: "100%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-6xl md:text-9xl font-black leading-none mb-6"
-          >
-            FEATURED
-            <br />
-            <span className="text-[#90ff4f]">PROJECTS</span>
-          </motion.h1>
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="text-gray-500 text-sm max-w-lg mb-10"
-        >
-          Explore my portfolio of innovative digital experiences, from concept to execution
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-block border border-gray-800 px-8 py-4 rounded-xl"
-        >
-          <span className="text-6xl font-black text-[#90ff4f]">{allProjects.length}</span>
-          <span className="block text-[10px] tracking-widest text-gray-500 font-black mt-1">PROJECTS</span>
-        </motion.div>
-      </section>
-
-      {/* ── PROJECT LIST (alternating layout) ── */}
-      <section className="px-6 md:px-20 max-w-7xl mx-auto pb-32 space-y-32">
-        {allProjects.map((project, index) => (
+      {/* ── HERO (Animasi On-Load) ── */}
+      <section className="pt-40 pb-20 md:pb-32 px-6 md:px-12 border-b border-gray-900">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={`grid md:grid-cols-2 gap-10 items-center ${index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
+            initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1.2, ease: fluidEase }}
+            className="flex items-center gap-4 mb-8 md:mb-12"
           >
-            {/* Image */}
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="group block">
-              <div className="w-full aspect-video bg-gray-900 rounded-2xl overflow-hidden relative border border-gray-800 group-hover:border-[#90ff4f]/50 transition-all duration-300">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-8xl font-black text-white/5">{project.id}</span>
-                </div>
-              </div>
-            </a>
-
-            {/* Content */}
-            <div>
-              <span className="text-xs text-gray-600 font-black">/ {project.id}</span>
-              <div className="flex flex-wrap gap-2 mt-3 mb-4">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="text-[10px] tracking-widest text-gray-500 font-black border border-gray-700 px-2 py-0.5 rounded-full">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black leading-tight mb-4">{project.title}</h2>
-              <p className="text-gray-500 text-sm leading-relaxed mb-8">{project.description}</p>
-              <a
-                href={project.link}
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs font-black tracking-widest border border-gray-700 px-6 py-3 rounded-md hover:border-[#90ff4f] hover:text-[#90ff4f] transition-all duration-300"
-              >
-                GET TO KNOW PROJECT
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-                </svg>
-              </a>
-            </div>
+            <div className="w-2 h-2 bg-[#90ff4f] rounded-full" />
+            <p className="text-xs tracking-[0.3em] text-gray-400 font-black">
+              INDEX
+            </p>
           </motion.div>
-        ))}
+
+          <div className="overflow-hidden mb-10 md:mb-16">
+            <motion.h1
+              initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
+              animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+              transition={{ duration: 1.2, delay: 0.1, ease: fluidEase }}
+              className="text-[14vw] md:text-[8vw] lg:text-[7rem] xl:text-[9rem] font-black uppercase leading-[0.85] tracking-tighter"
+            >
+              SELECTED <br />
+              <span className="text-[#90ff4f]">WORKS.</span>
+            </motion.h1>
+          </div>
+
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <motion.p
+              initial={{ opacity: 0, y: 40, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1.2, delay: 0.2, ease: fluidEase }}
+              className="text-gray-400 text-sm md:text-base max-w-xl leading-relaxed uppercase tracking-widest font-medium"
+            >
+              A CURATED SELECTION OF MY RECENT PROJECTS, RANGING FROM GEOSPATIAL MAPPING TO DATA AUTOMATION.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, delay: 0.4, ease: fluidEase }}
+              className="flex items-center gap-4 text-right"
+            >
+              <span className="text-6xl md:text-7xl font-black text-gray-800">{allProjects.length}</span>
+              <span className="text-[10px] tracking-widest text-gray-500 font-black text-left leading-tight">TOTAL<br/>PROJECTS</span>
+            </motion.div>
+          </div>
+        </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="bg-[#90ff4f] text-black py-24 px-6 text-center">
-        <RevealOnScroll>
-          <p className="text-2xl mb-4">👻</p>
-          <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
-            LET'S CREATE SOMETHING
-            <br />
-            EXTRAORDINARY
-          </h2>
-          <Link
-            href="/contact"
-            className="inline-block px-10 py-4 bg-black text-white font-black tracking-widest text-xs hover:bg-gray-900 transition-all duration-300 rounded-md"
+      {/* ── ZIG-ZAG BRUTALIST PROJECT LIST ── */}
+      <section className="bg-[#050505]">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-20">
+          <div className="flex flex-col">
+            {allProjects.map((project, index) => {
+              // Penentu posisi zigzag (genap = Kiri Teks Kanan Gambar, ganjil sebaliknya)
+              const isEven = index % 2 === 0;
+
+              return (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 80, filter: "blur(5px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: false, margin: "-100px" }}
+                  transition={{ duration: 1.2, ease: fluidEase }}
+                  className="group border-b border-gray-900 py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center"
+                >
+                  
+                  {/* BLOK GAMBAR */}
+                  <div className={isEven ? "lg:order-2" : "lg:order-1"}>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full overflow-hidden rounded-xl bg-gray-900 aspect-[4/3] md:aspect-video lg:aspect-[4/3]">
+                      <div className="w-full h-full transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1]">
+                        <motion.img
+                          whileHover={{ scale: 1.05 }}
+                          transition={{ duration: 1.5, ease: fluidEase }}
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                        />
+                        {/* Placeholder teks jika gambar tidak ada */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10 text-gray-700 text-xs font-black tracking-widest uppercase">
+                          {project.image}
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+
+                  {/* BLOK KONTEN */}
+                  <div className={`flex flex-col justify-center ${isEven ? "lg:order-1" : "lg:order-2"}`}>
+                    
+                    {/* Header: Angka Raksasa & Tags */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 lg:mb-12">
+                      <div className="text-6xl md:text-8xl font-black leading-none text-gray-800 group-hover:text-white transition-colors duration-500">
+                        {project.id}
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className="text-[10px] tracking-widest text-gray-400 font-black border border-gray-800 group-hover:border-[#90ff4f]/50 px-3 py-1 rounded-full uppercase transition-colors duration-300">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Judul Project */}
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-8 group-hover:text-[#90ff4f] transition-colors duration-500">
+                      {project.title}
+                    </h2>
+
+                    {/* Deskripsi & Tombol Aksi */}
+                    <div className="flex flex-col gap-8">
+                      <p className="text-gray-500 text-sm md:text-base leading-relaxed tracking-wide uppercase">
+                        {project.description}
+                      </p>
+                      <a
+                        href={project.link}
+                        target="_blank" rel="noopener noreferrer"
+                        className="inline-flex items-center gap-4 group/btn w-fit mt-4"
+                      >
+                        <span className="w-12 h-12 rounded-full border border-gray-700 flex items-center justify-center group-hover/btn:bg-[#90ff4f] group-hover/btn:border-[#90ff4f] transition-all duration-300 shrink-0">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white group-hover/btn:text-black group-hover/btn:-rotate-45 transition-all duration-300">
+                            <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                          </svg>
+                        </span>
+                        <span className="text-xs font-black tracking-widest text-white group-hover/btn:text-[#90ff4f] uppercase transition-colors duration-300">
+                          VIEW CASE STUDY
+                        </span>
+                      </a>
+                    </div>
+                    
+                  </div>
+
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── BRUTALIST CTA ── */}
+      <section className="bg-[#90ff4f] text-black py-32 px-6 md:px-12 border-t border-gray-900">
+        <div className="max-w-[1400px] mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 60, filter: "blur(4px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: fluidEase }}
+            className="flex flex-col items-center"
           >
-            GET STARTED NOW →
-          </Link>
-        </RevealOnScroll>
+            <p className="text-[10px] tracking-[0.3em] font-black text-black/60 mb-8 uppercase border border-black/20 px-4 py-2 rounded-full">
+              HAVE A PROJECT IN MIND?
+            </p>
+            <h2 className="text-5xl md:text-7xl lg:text-[8rem] font-black mb-12 leading-[0.85] tracking-tighter uppercase">
+              LET'S CREATE <br />
+              <span className="text-white drop-shadow-md">EXTRAORDINARY</span>
+            </h2>
+            <Link
+              href="/contact"
+              className="group relative inline-flex items-center justify-center px-12 py-5 bg-black text-white font-black tracking-widest text-xs uppercase overflow-hidden rounded-full"
+            >
+              <span className="relative z-10 group-hover:text-black transition-colors duration-500">START A CONVERSATION</span>
+              <div className="absolute inset-0 h-full w-full bg-white scale-y-0 origin-bottom transition-transform duration-500 group-hover:scale-y-100 ease-[0.22,1,0.36,1]"></div>
+            </Link>
+          </motion.div>
+        </div>
       </section>
 
     </main>

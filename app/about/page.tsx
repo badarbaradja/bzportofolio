@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import React from "react";
 
-// ── Reusable reveal ─────────────────────────────────────────────────────────
+// Custom easing for premium fluid feel
+const fluidEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+// ── Reusable reveal (Hanya untuk konten di bawah fold / yang di-scroll) ──
 function RevealOnScroll({
   children,
   delay = 0,
@@ -14,10 +18,11 @@ function RevealOnScroll({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 48 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 60, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      // Animasi berulang (muncul saat scroll down, hilang saat scroll up)
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ duration: 1.2, delay, ease: fluidEase }}
       className={className}
     >
       {children}
@@ -52,159 +57,177 @@ const awards = [
 
 export default function AboutPage() {
   return (
-    <main className="bg-[#050505] text-white min-h-screen">
+    <main className="bg-[#050505] text-white min-h-screen selection:bg-[#90ff4f] selection:text-black">
 
-      {/* ── HERO ── */}
-      <section className="pt-40 pb-24 px-6 md:px-20 max-w-7xl mx-auto">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs tracking-widest text-gray-500 font-black mb-6"
-        >
-          ABOUT
-        </motion.p>
-
-        {/* Headline — kata per kata slide up */}
-        <div className="overflow-hidden mb-8">
-          <motion.h1
-            initial={{ y: "100%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter max-w-5xl"
+      {/* ── HERO (Animasi On-Load Otomatis) ── */}
+      <section className="pt-40 pb-20 md:pb-32 px-6 md:px-12 border-b border-gray-900">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Label About Me - Langsung animate */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} // Menggunakan animate, BUKAN whileInView
+            transition={{ duration: 1.2, ease: fluidEase }}
+            className="flex items-center gap-4 mb-8 md:mb-12"
           >
-            OVER 2 YEARS OF EXPERIENCE, CONTINUOUSLY PUSHING THE BOUNDARIES OF{" "}
-            <span className="text-[#90ff4f]">DEVELOPMENT & DATA.</span>
-          </motion.h1>
-        </div>
+            <div className="w-2 h-2 bg-[#90ff4f] rounded-full" />
+            <p className="text-xs tracking-[0.3em] text-gray-400 font-black">
+              ABOUT ME
+            </p>
+          </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed uppercase tracking-wide font-medium"
-        >
-          ENTHUSIASTIC ABOUT CRAFTING SEAMLESS EXPERIENCES THAT COMBINE GEOSPATIAL DATA,
-          SYSTEM AUTOMATION, AND MODERN WEB TECHNOLOGIES.
-        </motion.p>
+          {/* Headline Raksasa - Langsung animate */}
+          <div className="overflow-hidden mb-10 md:mb-16">
+            <motion.h1
+              initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
+              animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }} // Menggunakan animate
+              transition={{ duration: 1.2, delay: 0.1, ease: fluidEase }}
+              className="text-[12vw] md:text-[7vw] lg:text-[6rem] xl:text-[7rem] font-black uppercase leading-[0.85] tracking-tighter"
+            >
+              OVER 2 YEARS OF <br />
+              <span className="text-gray-600">EXPERIENCE,</span> CONTINUOUSLY <br />
+              PUSHING BOUNDARIES IN <br />
+              <span className="text-[#90ff4f]">DEVELOPMENT & DATA.</span>
+            </motion.h1>
+          </div>
+
+          {/* Subtitle - Langsung animate */}
+          <motion.p
+            initial={{ opacity: 0, y: 40, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} // Menggunakan animate
+            transition={{ duration: 1.2, delay: 0.2, ease: fluidEase }}
+            className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed uppercase tracking-widest font-medium"
+          >
+            ENTHUSIASTIC ABOUT CRAFTING SEAMLESS EXPERIENCES THAT COMBINE GEOSPATIAL DATA,
+            SYSTEM AUTOMATION, AND MODERN WEB TECHNOLOGIES.
+          </motion.p>
+        </div>
       </section>
 
-      {/* ── PROFILE (putih) ── */}
-      <section className="bg-white text-black py-24 px-6 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] w-[150vw] md:w-[120vw] h-[200px] md:h-[300px] bg-[#050505] rounded-[100%] z-0 pointer-events-none" />
+      {/* ── PROFILE & STATS (Animasi On-Scroll) ── */}
+      <section className="py-24 px-6 md:px-12 border-b border-gray-900 bg-[#050505]">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-[1fr_1.5fr] gap-16 lg:gap-32 items-start">
 
-        <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-
-          {/* Left: Image */}
+          {/* Kiri: Foto Profile */}
           <RevealOnScroll>
-            <div className="relative">
-              <div className="w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
-                <img
+            <div className="relative group">
+              <div className="w-full aspect-[4/5] bg-gray-900 overflow-hidden flex items-center justify-center transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1]">
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 1.5, ease: fluidEase }}
                   src="/profile.jpg"
                   alt="Badar Zaki Baradja"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                 />
-                {/* Placeholder */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-300">
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-700 pointer-events-none -z-10">
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
                   </svg>
-                  <p className="text-xs mt-2 font-medium">Add profile.jpg to /public</p>
+                  <p className="text-xs mt-2 font-medium tracking-widest uppercase">/public/profile.jpg</p>
                 </div>
               </div>
-
-              {/* Badge floating */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-6 -right-4 bg-black text-white px-6 py-4 rounded-xl shadow-2xl"
-              >
-                <div className="text-[10px] font-black tracking-widest text-gray-400">BADAR ZAKI BARADJA</div>
-                <div className="text-[#90ff4f] text-[10px] font-black tracking-widest mt-1">FRONTEND DEVELOPER</div>
-              </motion.div>
             </div>
           </RevealOnScroll>
 
-          {/* Right: Quote + Stats */}
-          <RevealOnScroll delay={0.15}>
-            <div className="text-6xl text-gray-200 font-black leading-none mb-4">"</div>
-            <p className="text-xl md:text-2xl font-black leading-tight mb-10">
-              I build data-driven web applications by combining geospatial technology with
-              clean, performant frontend code to deliver meaningful results.
-            </p>
+          {/* Kanan: Kutipan & Grid Statistik */}
+          <div className="flex flex-col justify-center h-full pt-8 lg:pt-0">
+            <RevealOnScroll delay={0.15}>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-black leading-[1.1] mb-16 uppercase tracking-tighter">
+                "I build data-driven web applications by combining geospatial technology with
+                clean, performant frontend code to deliver <span className="text-[#90ff4f]">meaningful results.</span>"
+              </h2>
+            </RevealOnScroll>
 
-            {/* Stats grid */}
-            <div className="grid grid-cols-2 gap-6 mt-10 pt-10 border-t border-gray-100">
+            {/* Grid Statistik */}
+            <div className="grid grid-cols-2 gap-x-8 gap-y-12 pt-12 border-t border-gray-900">
               {[
-                { num: "3.8", label: "/ 01  GPA" },
-                { num: "10+", label: "/ 02  PROJECTS" },
-                { num: "5+", label: "/ 03  AWARD RECOGNITIONS" },
-                { label: "/ 04  ORGANIZATIONAL EXPERIENCE", sub: "ACTIVE IN CAMPUS ORGANIZATIONS" },
+                { num: "3.8", label: "GPA SCORE" },
+                { num: "10+", label: "COMPLETED PROJECTS" },
+                { num: "5+", label: "AWARD RECOGNITIONS" },
+                { label: "ORGANIZATIONAL EXPERIENCE", sub: "ACTIVE IN CAMPUS ORGANIZATIONS & LABS" },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0, y: 40, filter: "blur(4px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: false, margin: "-50px" }}
+                  transition={{ duration: 1.2, delay: 0.2 + i * 0.1, ease: fluidEase }}
+                  className="flex flex-col"
                 >
-                  {stat.num && <div className="text-4xl font-black">{stat.num}</div>}
-                  <div className="text-[10px] font-black tracking-widest text-gray-400 mt-1">{stat.label}</div>
-                  {stat.sub && <div className="text-[9px] text-gray-400 mt-1">{stat.sub}</div>}
+                  <div className="text-[10px] font-black tracking-[0.2em] text-[#90ff4f] mb-3">/ 0{i + 1}</div>
+                  {stat.num && <div className="text-5xl md:text-6xl font-black tracking-tighter mb-2">{stat.num}</div>}
+                  <div className="text-xs font-black tracking-widest text-white uppercase">{stat.label}</div>
+                  {stat.sub && <div className="text-[10px] text-gray-500 tracking-widest uppercase mt-2 leading-relaxed">{stat.sub}</div>}
                 </motion.div>
               ))}
             </div>
-          </RevealOnScroll>
+          </div>
+
         </div>
       </section>
 
-      {/* ── AWARDS (hitam) ── */}
-      <section className="bg-[#050505] text-white py-32 px-6 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[50%] w-[150vw] md:w-[120vw] h-[200px] md:h-[300px] bg-white rounded-[100%] z-0 pointer-events-none" />
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <RevealOnScroll className="mb-20">
-            <div className="text-xs tracking-[0.3em] text-gray-600 font-black mb-4">
-              ACHIEVEMENT — ACHIEVEMENT — ACHIEVEMENT —
+      {/* ── AWARDS & HONORS (Animasi On-Scroll) ── */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#050505]">
+        <div className="max-w-[1400px] mx-auto">
+          
+          <RevealOnScroll className="mb-20 md:mb-32">
+            <div className="text-xs tracking-[0.3em] text-[#90ff4f] font-black mb-6">
+              / RECOGNITION
             </div>
-            <h2 className="text-5xl md:text-7xl font-black">
-              AWARDS &amp; <span className="text-[#90ff4f]">HONORS</span>
+            <h2 className="text-5xl md:text-7xl lg:text-[6rem] font-black tracking-tighter uppercase leading-none">
+              AWARDS &amp; <br /> <span className="text-gray-600">HONORS</span>
             </h2>
           </RevealOnScroll>
 
-          {awards.map((group) => (
-            <div key={group.year} className="mb-12">
-              <div className="text-xs text-gray-700 font-black tracking-widest border-b border-gray-800 pb-3 mb-2">
-                {group.year}
+          {/* List Awards */}
+          <div className="border-t border-gray-900">
+            {awards.map((group, groupIndex) => (
+              <div key={group.year} className="grid md:grid-cols-[200px_1fr] lg:grid-cols-[250px_1fr] border-b border-gray-900">
+                {/* Kolom Kiri: Tahun */}
+                <div className="py-8 pr-8">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false, margin: "-50px" }}
+                    transition={{ duration: 1.2, ease: fluidEase }}
+                    className="text-sm text-gray-500 font-black tracking-[0.2em] sticky top-32"
+                  >
+                    {group.year}
+                  </motion.div>
+                </div>
+                
+                {/* Kolom Kanan: Detail Awards */}
+                <div className="flex flex-col">
+                  {group.items.map((award, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 40, filter: "blur(4px)" }}
+                      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      viewport={{ once: false, margin: "-50px" }}
+                      transition={{ duration: 1.2, delay: i * 0.1, ease: fluidEase }}
+                      className={`py-8 grid md:grid-cols-[1fr_auto] gap-6 md:gap-12 items-start group ${
+                        i !== group.items.length - 1 ? "border-b border-gray-900" : ""
+                      }`}
+                    >
+                      <div>
+                        <h3 className="font-black text-xl md:text-2xl uppercase tracking-tight group-hover:text-[#90ff4f] transition-colors duration-300 mb-2">
+                          {award.title}
+                        </h3>
+                        <p className="text-gray-500 text-sm tracking-widest uppercase">{award.org}</p>
+                      </div>
+                      <div className="flex flex-row md:flex-col justify-between md:justify-start md:text-right shrink-0 gap-4 md:gap-2">
+                        <div className="text-xs text-white font-black tracking-widest uppercase">{award.date}</div>
+                        <div className="text-[10px] tracking-widest text-gray-500 font-black uppercase">
+                          [ {award.tag} ]
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-              {group.items.map((award, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-b border-gray-800 py-6 grid md:grid-cols-[1fr_auto] gap-4 items-center group hover:bg-white/5 px-2 -mx-2 rounded transition-colors duration-200"
-                >
-                  <div>
-                    <h3 className="font-black text-lg group-hover:text-[#90ff4f] transition-colors duration-200">
-                      {award.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm mt-1">{award.org}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="text-xs text-gray-600 font-bold">{award.date}</div>
-                    <div className="text-[10px] tracking-widest text-[#90ff4f] font-black mt-1 border border-[#90ff4f]/30 px-2 py-0.5 rounded-full inline-block">
-                      {award.tag}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          ))}
+            ))}
+          </div>
+
         </div>
       </section>
 

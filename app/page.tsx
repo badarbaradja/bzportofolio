@@ -5,6 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import HeroSection from "@/components/HeroSection";
 
+// Custom easing for premium fluid feel
+const fluidEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
 function RevealOnScroll({
   children,
   delay = 0,
@@ -16,10 +19,11 @@ function RevealOnScroll({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 48 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 60, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      // once: false agar animasi berulang saat di-scroll naik/turun
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ duration: 1.2, delay, ease: fluidEase }}
       className={className}
     >
       {children}
@@ -56,7 +60,7 @@ function CurvedRevealSection({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.2"] });
-  const ballY = useTransform(scrollYProgress, [0, 1], ["0%", "-105%"]);
+  const ballY = useTransform(scrollYProgress, [0, 1], ["0%", "-100%"]);
 
   return (
     <div ref={ref} className={`relative ${bgColor} overflow-hidden`}>
@@ -109,76 +113,39 @@ const featuredProjects = [
 ];
 
 const experiences = [
-  {
-    company: "PT. Phillip Sekuritas Indonesia",
-    role: "Frontend Engineer",
-    period: "March 2026 - Present",
-    description: "Contributed to the development of a web-based application using React and Next.js, collaborated with the design team to implement responsive UI components, and participated in code reviews to ensure code quality.",
-  },
-  {
-    company: "PT. Amanah Karya Indonesia",
-    role: "Frontend Developer",
-    period: "August 2025 - December 2025",
-    description: "Developed and implemented ticket widget features using React and Tailwind CSS, collaborated with cross-functional teams, and maintained UI/UX consistency with brand guidelines.",
-  },
-  {
-    company: "PT. Sagara Asia Teknologi",
-    role: "Frontend Developer",
-    period: "August 2024 - February 2025",
-    description: "Developed responsive and interactive user interfaces using React and Next.js, optimized web application performance for faster loading times and improved SEO.",
-  },
-  {
-    company: "Enterprise Data Management Laboratory – Telkom University",
-    role: "Laboratory Coordinator",
-    period: "September 2024 - December 2025",
-    description: "Leading and managing operational and academic activities of the EDM Laboratory, coordinating internal divisions, and mentoring junior members.",
-  },
-  {
-    company: "Bangkit Academy 2024",
-    role: "Machine Learning Cohort",
-    period: "September 2024 - January 2025",
-    description: "Participated in an intensive learning program focused on Machine Learning concepts, collaborated on projects involving data analysis and model training.",
-  },
-  {
-    company: "Digistar Class 2024",
-    role: "Hustler",
-    period: "August 2024 - October 2024",
-    description: "Engaged in continuous learning to develop skills in entrepreneurship and business strategies, applied innovative marketing techniques.",
-  },
-  {
-    company: "Blu BCA",
-    role: "Blu Ambassador",
-    period: "November 2023 - January 2025",
-    description: "Acted as brand representative promoting products through engaging interactions and events, fostered community engagement and provided feedback on customer experiences.",
-  },
-  {
-    company: "Microsoft Tel-U Crew",
-    role: "Microsoft Representative",
-    period: "November 2023 - December 2023",
-    description: "Mastered Microsoft Technologies in a focused 4 weeks program, learned Power Pivot for Microsoft Excel to configure formulas.",
-  },
+  { company: "PT. Phillip Sekuritas Indonesia", role: "Frontend Engineer", period: "March 2026 - Present", description: "Contributed to the development of a web-based application using React and Next.js, collaborated with the design team to implement responsive UI components, and participated in code reviews to ensure code quality." },
+  { company: "PT. Amanah Karya Indonesia", role: "Frontend Developer", period: "August 2025 - December 2025", description: "Developed and implemented ticket widget features using React and Tailwind CSS, collaborated with cross-functional teams, and maintained UI/UX consistency with brand guidelines." },
+  { company: "PT. Sagara Asia Teknologi", role: "Frontend Developer", period: "August 2024 - February 2025", description: "Developed responsive and interactive user interfaces using React and Next.js, optimized web application performance for faster loading times and improved SEO." },
+  { company: "Enterprise Data Management Laboratory – Telkom University", role: "Laboratory Coordinator", period: "September 2024 - December 2025", description: "Leading and managing operational and academic activities of the EDM Laboratory, coordinating internal divisions, and mentoring junior members." },
+  { company: "Bangkit Academy 2024", role: "Machine Learning Cohort", period: "September 2024 - January 2025", description: "Participated in an intensive learning program focused on Machine Learning concepts, collaborated on projects involving data analysis and model training." },
+  { company: "Digistar Class 2024", role: "Hustler", period: "August 2024 - October 2024", description: "Engaged in continuous learning to develop skills in entrepreneurship and business strategies, applied innovative marketing techniques." },
+  { company: "Blu BCA", role: "Blu Ambassador", period: "November 2023 - January 2025", description: "Acted as brand representative promoting products through engaging interactions and events, fostered community engagement and provided feedback on customer experiences." },
+  { company: "Microsoft Tel-U Crew", role: "Microsoft Representative", period: "November 2023 - December 2023", description: "Mastered Microsoft Technologies in a focused 4 weeks program, learned Power Pivot for Microsoft Excel to configure formulas." },
 ];
 
 function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; index: number }) {
   const isEven = index % 2 === 0;
   return (
     <motion.div
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, y: 80, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      // once: false agar animasi berulang
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ duration: 1.2, ease: fluidEase }}
       className="grid md:grid-cols-2 gap-0 items-stretch"
     >
       <div className={isEven ? "md:order-1" : "md:order-2"}>
-        <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full">
-          <div className="relative w-full h-[300px] md:h-[400px] bg-gray-900 overflow-hidden rounded-2xl">
-            <img
+        <a href={project.link} target="_blank" rel="noopener noreferrer" className="block h-full group overflow-hidden rounded-2xl">
+          <div className="relative w-full h-75 md:h-100 bg-gray-900 overflow-hidden rounded-2xl transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1]">
+            <motion.img
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 1.5, ease: fluidEase }}
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-700"
+              className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
               onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
             />
-            <div className="absolute inset-0 flex items-end p-6 bg-gradient-to-t from-black/60 to-transparent">
+            <div className="absolute inset-0 flex items-end p-6 bg-linear-to-t from-black/60 to-transparent">
               <span className="text-7xl font-black text-white/10">{project.id}</span>
             </div>
           </div>
@@ -190,8 +157,8 @@ function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; 
         <p className="text-xs tracking-widest text-gray-500 font-black mb-4">{project.tags}</p>
         <p className="text-gray-400 text-sm leading-relaxed mb-8">{project.description}</p>
         <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 group w-fit">
-          <span className="w-10 h-10 rounded-full bg-[#90ff4f] flex items-center justify-center group-hover:bg-white transition-colors duration-300 shrink-0">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5">
+          <span className="w-10 h-10 rounded-full bg-[#90ff4f] flex items-center justify-center group-hover:bg-white transition-colors duration-500 shrink-0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="2.5" className="group-hover:rotate-45 transition-transform duration-500">
               <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
             </svg>
           </span>
@@ -204,48 +171,80 @@ function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; 
 
 function TimelineItem({ exp, index }: { exp: typeof experiences[0]; index: number }) {
   const isLeft = index % 2 === 0;
+
+  const ExperienceContent = () => (
+    <>
+      <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1">{exp.company}</h3>
+      <p className="text-sm font-black text-[#90ff4f] mb-3">{exp.role}</p>
+      <p className="text-gray-400 text-sm leading-relaxed mb-2">{exp.description}</p>
+      <p className="text-gray-600 text-xs font-bold">{exp.period}</p>
+    </>
+  );
+
   return (
     <motion.div
-      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="grid grid-cols-[1fr_24px_1fr]"
+      initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      // once: false agar animasi masuk/keluar berulang
+      viewport={{ once: false, margin: "-100px" }}
+      transition={{ duration: 1.2, ease: fluidEase }}
+      className="relative flex md:grid md:grid-cols-[1fr_auto_1fr] items-start md:items-center gap-0 md:gap-8 py-6 md:py-10"
     >
-      <div className={`py-12 pr-10 ${isLeft ? "text-right" : ""}`}>
-        {isLeft && (
-          <>
-            <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1">{exp.company}</h3>
-            <p className="text-sm font-black text-gray-300 mb-3">{exp.role}</p>
-            <p className="text-gray-500 text-sm leading-relaxed mb-2">{exp.description}</p>
-            <p className="text-gray-600 text-xs font-bold">{exp.period}</p>
-          </>
-        )}
+      {/* KIRI: Sembunyi di mobile. Muncul di desktop jika index Genap (isLeft) */}
+      <div className={`hidden md:block text-right ${!isLeft ? "opacity-0 invisible" : ""}`}>
+        <ExperienceContent />
       </div>
 
-      <div className="flex flex-col items-center">
-        <div className="w-px flex-1 bg-[#90ff4f]" style={{ minHeight: 40 }} />
+      {/* TENGAH: Titik Node */}
+      <div className="absolute left-0 md:relative md:left-auto flex justify-center items-center w-8 z-10 top-[28px] md:top-auto">
         <motion.div
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="w-3 h-3 rounded-full bg-[#90ff4f] shrink-0 shadow-[0_0_12px_rgba(144,255,79,0.9)]"
+          // Titik ini juga diset once: false agar ikut berulang
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease: fluidEase }}
+          className="w-4 h-4 rounded-full bg-[#050505] border-[3px] border-[#90ff4f] shadow-[0_0_15px_rgba(144,255,79,0.8)]"
         />
-        <div className="w-px flex-1 bg-[#90ff4f]" style={{ minHeight: 40 }} />
       </div>
 
-      <div className="py-12 pl-10">
-        {!isLeft && (
-          <>
-            <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-1">{exp.company}</h3>
-            <p className="text-sm font-black text-gray-300 mb-3">{exp.role}</p>
-            <p className="text-gray-500 text-sm leading-relaxed mb-2">{exp.description}</p>
-            <p className="text-gray-600 text-xs font-bold">{exp.period}</p>
-          </>
-        )}
+      {/* KANAN: Selalu muncul di mobile (pl-12). Di desktop muncul jika index Ganjil (!isLeft) */}
+      <div className={`pl-12 md:pl-0 w-full text-left ${isLeft ? "md:opacity-0 md:invisible" : ""}`}>
+        <ExperienceContent />
       </div>
     </motion.div>
+  );
+}
+
+function JourneyTimeline({ experiences }: { experiences: any[] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // Mengambil progres scroll elemen container ini
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"], 
+  });
+
+  // Mengubah scroll progress (0 - 1) menjadi tinggi (0% - 100%)
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  return (
+    <div ref={containerRef} className="relative max-w-5xl mx-auto py-10">
+      {/* Garis Latar Belakang (Redup & Statis) */}
+      <div className="absolute left-[15px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-900 md:-translate-x-1/2 rounded-full" />
+
+      {/* Garis Isi (Hijau Menyala) Mengikuti Scroll */}
+      <motion.div
+        style={{ height: lineHeight }}
+        className="absolute left-[15px] md:left-1/2 top-0 w-[2px] bg-[#90ff4f] md:-translate-x-1/2 origin-top shadow-[0_0_20px_rgba(144,255,79,0.6)] z-0 rounded-full"
+      />
+
+      {/* Daftar Pengalaman */}
+      <div className="relative z-10 flex flex-col">
+        {experiences.map((exp, i) => (
+          <TimelineItem key={i} exp={exp} index={i} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -279,14 +278,14 @@ export default function Home() {
           { href: "https://instagram.com/badarbaradja_", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
           { href: "https://github.com", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg> },
         ].map((item, i) => (
-          <motion.a key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.4 + i * 0.1, duration: 0.6 }} href={item.href} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#90ff4f] hover:scale-125 transition-all duration-200">
+          <motion.a key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.4 + i * 0.1, duration: 1, ease: fluidEase }} href={item.href} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#90ff4f] hover:scale-125 transition-all duration-300">
             {item.icon}
           </motion.a>
         ))}
       </div>
 
       {/* Fixed sidebar kanan */}
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 0.8 }} className="hidden md:block fixed right-6 top-1/2 -translate-y-1/2 z-40">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.8, duration: 1.2, ease: fluidEase }} className="hidden md:block fixed right-6 top-1/2 -translate-y-1/2 z-40">
         <div className="text-[9px] tracking-[0.35em] font-black text-gray-600 whitespace-nowrap" style={{ writingMode: "vertical-rl" }}>
           BADAR ZAKI BARADJA
         </div>
@@ -308,7 +307,7 @@ export default function Home() {
             </h2>
           </RevealOnScroll>
           <RevealOnScroll delay={0.2} className="mt-16">
-            <Link href="/about" className="px-10 py-4 bg-black text-white font-black tracking-widest text-sm hover:bg-[#90ff4f] hover:text-black transition-all duration-300 rounded-md">
+            <Link href="/about" className="px-10 py-4 bg-black text-white font-black tracking-widest text-sm hover:bg-[#90ff4f] hover:text-black hover:scale-105 transition-all duration-500 rounded-md inline-block">
               MORE ABOUT ME →
             </Link>
           </RevealOnScroll>
@@ -326,12 +325,12 @@ export default function Home() {
               </h2>
             </RevealOnScroll>
             <RevealOnScroll delay={0.1}>
-              <Link href="/projects" className="text-xs font-black tracking-widest bg-[#90ff4f] text-black px-6 py-3 hover:bg-white transition-all duration-300 rounded-md">
+              <Link href="/projects" className="text-xs font-black tracking-widest bg-[#90ff4f] text-black px-6 py-3 hover:bg-white hover:scale-105 transition-all duration-500 rounded-md inline-block">
                 VIEW ALL
               </Link>
             </RevealOnScroll>
           </div>
-          <div className="space-y-16">
+          <div className="space-y-24 md:space-y-32">
             {featuredProjects.map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
@@ -344,17 +343,15 @@ export default function Home() {
         <div className="border-t border-gray-900 overflow-hidden">
           <Marquee text="EXPERIENCE — EXPERIENCE — EXPERIENCE — EXPERIENCE" dark />
         </div>
-        <div className="max-w-5xl mx-auto px-6 pt-24 pb-10">
-          <RevealOnScroll className="text-center mb-20">
+        <div className="max-w-6xl mx-auto px-6 pt-24 pb-10">
+          <RevealOnScroll className="text-center mb-10 md:mb-20">
             <div className="text-xs tracking-[0.3em] text-[#90ff4f] font-black mb-4">— EXPERIENCE — EXPERIENCE —</div>
             <h2 className="text-5xl md:text-7xl font-black text-white">MY JOURNEY</h2>
             <p className="text-gray-500 text-sm mt-4">Explore my professional journey and the technologies that define my craft</p>
           </RevealOnScroll>
-          <div>
-            {experiences.map((exp, i) => (
-              <TimelineItem key={i} exp={exp} index={i} />
-            ))}
-          </div>
+          
+          <JourneyTimeline experiences={experiences} />
+          
         </div>
       </section>
 
