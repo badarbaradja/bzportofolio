@@ -1,10 +1,54 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 import ParticleBackground from "./ParticleBackground";
 import Link from "next/link";
 
 export default function HeroSection() {
+  // ✅ handle window size (biar aman dari SSR error)
+  const [viewport, setViewport] = useState({ width: 1920, height: 1080 });
+
+  useEffect(() => {
+    setViewport({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+
+    const handleResize = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ✅ mouse tracking
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
+  // ✅ smoothing
+  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  // ✅ parallax transform (AMAN dari undefined window)
+  const moveX = useTransform(smoothX, [0, viewport.width], [-25, 25]);
+  const moveY = useTransform(smoothY, [0, viewport.height], [-25, 25]);
+
+  // ✅ animation variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -14,27 +58,40 @@ export default function HeroSection() {
   };
 
   const wordVariants: Variants = {
-    hidden: { y: "110%", opacity: 0 },
+    hidden: {
+      y: "120%",
+      opacity: 0,
+      scale: 1.1,
+      filter: "blur(10px)",
+    },
     visible: {
       y: "0%",
       opacity: 1,
-      transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
+      scale: 1,
+      filter: "blur(0px)",
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
   return (
     <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden bg-[#050505]">
-      <ParticleBackground />
 
+      {/* 🔥 PARALLAX BACKGROUND */}
+      <motion.div style={{ x: moveX, y: moveY }} className="absolute inset-0">
+        <ParticleBackground />
+      </motion.div>
+
+      {/* CONTENT */}
       <div className="flex flex-col items-center justify-center w-full px-4 text-center z-10">
 
+        {/* TITLE */}
         <motion.h1
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="font-black uppercase tracking-tighter"
         >
-          {/* Baris 1: putih, lebih kecil */}
+          {/* BUILDING */}
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
@@ -44,28 +101,34 @@ export default function HeroSection() {
             </motion.span>
           </div>
 
-          {/* Baris 2: hijau, besar */}
+          {/* DATA */}
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
-              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88]"
+              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
             >
               DATA-DRIVEN
             </motion.span>
           </div>
 
-          {/* Baris 3: hijau, besar */}
+          {/* SOLUTIONS */}
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
-              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88]"
+              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
             >
               SOLUTIONS
             </motion.span>
           </div>
         </motion.h1>
 
-        {/* Subtitle */}
+        {/* FLOATING EFFECT */}
+        <motion.div
+          animate={{ y: [0, -8, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        />
+
+        {/* SUBTITLE */}
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,7 +139,7 @@ export default function HeroSection() {
           system automation, and data-driven solutions.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -90,6 +153,7 @@ export default function HeroSection() {
           >
             Download CV
           </a>
+
           <Link
             href="/contact"
             className="px-8 py-3 bg-[#90ff4f] text-black text-sm font-bold tracking-widest hover:bg-white transition-all duration-300 rounded-md shadow-[0_0_30px_rgba(144,255,79,0.3)]"
@@ -99,7 +163,7 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* SCROLL INDICATOR */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.6 }}
@@ -112,7 +176,7 @@ export default function HeroSection() {
           className="flex flex-col items-center gap-2"
         >
           <span className="text-[10px] tracking-widest font-bold">SCROLL DOWN</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="12" y1="5" x2="12" y2="19" />
             <polyline points="19 12 12 19 5 12" />
           </svg>
