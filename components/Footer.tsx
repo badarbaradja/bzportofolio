@@ -45,7 +45,7 @@ export default function Footer() {
             {[
               { label: "HOME", href: "/" },
               { label: "ABOUT", href: "/about" },
-              { label: "PROJECTS", href: "/projects" },
+              { label: "PROJECTS", href: "/contact/projects" },
               { label: "CONTACT", href: "/contact" },
             ].map((item) => (
               <Link
@@ -66,7 +66,7 @@ export default function Footer() {
           </span>
           <div className="flex gap-6">
             {[
-              { label: "INSTAGRAM", href: "https://instagram.com/badarbaradja_" },
+              { label: "INSTAGRAM", href: "https://instagram.com/badarbaraja" },
               { label: "LINKEDIN", href: "https://linkedin.com/in/badar-baradja-5b1bb820a/" },
               { label: "GITHUB", href: "https://github.com" },
             ].map((s) => (

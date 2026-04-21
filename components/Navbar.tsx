@@ -29,7 +29,7 @@ export default function Navbar() {
           About
         </Link>
         <Link
-          href="/projects"
+          href="/contact/projects"
           className={`hover:text-[#90ff4f] transition-colors ${pathname === "/projects" ? "text-[#90ff4f]" : ""}`}
         >
           Projects

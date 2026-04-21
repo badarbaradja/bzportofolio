@@ -21,7 +21,6 @@ function RevealOnScroll({
     <motion.div
       initial={{ opacity: 0, y: 60, filter: "blur(4px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      // once: false agar animasi berulang saat di-scroll naik/turun
       viewport={{ once: false, margin: "-100px" }}
       transition={{ duration: 1.2, delay, ease: fluidEase }}
       className={className}
@@ -80,47 +79,85 @@ function CurvedRevealSection({
 const featuredProjects = [
   {
     id: "01",
-    title: "WebGIS Monitoring",
-    tags: "WEBGIS, FRONTEND DEVELOPMENT",
-    description: "A web-based geographic information system for real-time infrastructure monitoring, built with Leaflet.js and React to visualize spatial data across regions.",
-    link: "#",
-    image: "/projects/webgis.png",
+    title: "ThinkSpace Platform",
+    tags: "STARTUP INCUBATION, BUSINESS MODEL",
+    description: "Actively participating in the Bandung Techno Park (BTP) startup incubation program at Telkom University to develop business and technical models.",
+    link: "/projects",
+    image: "/projects/thinkspace.png",
   },
   {
     id: "02",
-    title: "Automation Dashboard",
-    tags: "SYSTEM AUTOMATION, DATA VISUALIZATION",
-    description: "An internal dashboard automating data collection and reporting workflows, reducing manual processes and enabling data-driven decisions.",
-    link: "#",
-    image: "/projects/dashboard.png",
+    title: "Lab Management Dashboard Electrical Circuit Lab",
+    tags: "WEB DEVELOPMENT, AUTOMATION",
+    description: "Engineered an administrative dashboard automating camera-based attendance, salary slips, and penalty calculations for 49 assistants.",
+    link: "/projects",
+    image: "/projects/electrical_lab.png",
   },
   {
     id: "03",
-    title: "Telecom Network Analyzer",
-    tags: "DATA ANALYSIS, FRONTEND DEVELOPMENT",
-    description: "A tool for visualizing telecommunication network performance metrics with interactive charts and anomaly detection features.",
-    link: "#",
-    image: "/projects/analyzer.png",
-  },
-  {
-    id: "04",
-    title: "IoT Sensor Platform",
-    tags: "IOT, REAL-TIME DATA",
-    description: "A platform for collecting and displaying real-time data from IoT sensors, with live graphs, alert systems, and historical data export.",
-    link: "#",
-    image: "/projects/iot.png",
+    title: "ERP MBC Lab Repository",
+    tags: "WEBGIS, ERP SYSTEM",
+    description: "Co-developed an ERP-like laboratory management system to streamline operations, project tracking, and assignments for 78 research assistants.",
+    link: "/projects",
+    image: "/projects/mbc_erp.png",
   },
 ];
 
 const experiences = [
-  { company: "PT. Phillip Sekuritas Indonesia", role: "Frontend Engineer", period: "March 2026 - Present", description: "Contributed to the development of a web-based application using React and Next.js, collaborated with the design team to implement responsive UI components, and participated in code reviews to ensure code quality." },
-  { company: "PT. Amanah Karya Indonesia", role: "Frontend Developer", period: "August 2025 - December 2025", description: "Developed and implemented ticket widget features using React and Tailwind CSS, collaborated with cross-functional teams, and maintained UI/UX consistency with brand guidelines." },
-  { company: "PT. Sagara Asia Teknologi", role: "Frontend Developer", period: "August 2024 - February 2025", description: "Developed responsive and interactive user interfaces using React and Next.js, optimized web application performance for faster loading times and improved SEO." },
-  { company: "Enterprise Data Management Laboratory – Telkom University", role: "Laboratory Coordinator", period: "September 2024 - December 2025", description: "Leading and managing operational and academic activities of the EDM Laboratory, coordinating internal divisions, and mentoring junior members." },
-  { company: "Bangkit Academy 2024", role: "Machine Learning Cohort", period: "September 2024 - January 2025", description: "Participated in an intensive learning program focused on Machine Learning concepts, collaborated on projects involving data analysis and model training." },
-  { company: "Digistar Class 2024", role: "Hustler", period: "August 2024 - October 2024", description: "Engaged in continuous learning to develop skills in entrepreneurship and business strategies, applied innovative marketing techniques." },
-  { company: "Blu BCA", role: "Blu Ambassador", period: "November 2023 - January 2025", description: "Acted as brand representative promoting products through engaging interactions and events, fostered community engagement and provided feedback on customer experiences." },
-  { company: "Microsoft Tel-U Crew", role: "Microsoft Representative", period: "November 2023 - December 2023", description: "Mastered Microsoft Technologies in a focused 4 weeks program, learned Power Pivot for Microsoft Excel to configure formulas." },
+  { 
+    company: "MBC Laboratory", 
+    role: "Research Assistant", 
+    period: "Oct 2025 - Present", 
+    description: "Conducted GIS research, secured an HKI certificate, co-developed an ERP-like laboratory management system, and engineered a digital knowledge repository." 
+  },
+  { 
+    company: "Electrical Circuit Laboratory", 
+    role: "Practicum Assistant", 
+    period: "May 2025 - Present", 
+    description: "Mentored students, developed a comprehensive lab management website, and engineered an administrative dashboard replacing manual Google Forms operations." 
+  },
+  { 
+    company: "Himpunan Mahasiswa Teknik Telekomunikasi (HMTT)", 
+    role: "Academic Expert Staff", 
+    period: "Jun 2025 - Dec 2025", 
+    description: "Contributed to academic development programs, facilitated academic discussions, and collaborated to execute faculty-level educational events." 
+  },
+  { 
+    company: "Telecommunication Science Association (TOSCA)", 
+    role: "Deputy Chair", 
+    period: "May 2025 - Dec 2025", 
+    description: "Assisted in leading structural operations, coordinated the execution of division work programs, and evaluated organizational performance." 
+  },
+  { 
+    company: "GATHRAK", 
+    role: "Logistics Member", 
+    period: "Apr 2025 - Jun 2025", 
+    description: "Managed equipment requirements and collaborated with the PDD division to execute event decorations smoothly." 
+  },
+  { 
+    company: "PRADA", 
+    role: "Public Relations Member", 
+    period: "Jan 2025 - Mar 2025", 
+    description: "Operated within the Donaturial division to establish external communications and successfully raised funds for Ramadan 2025 events." 
+  },
+  { 
+    company: "PT Dabi Air Nusantara", 
+    role: "Intern", 
+    period: "Jun 2024 - Sep 2024", 
+    description: "Managed spare parts data, developed an automated maintenance tracking system, and created a monitoring system for crew licenses." 
+  },
+  { 
+    company: "HSC 2022", 
+    role: "Secretary of Public Relations", 
+    period: "Aug 2021 - Dec 2022", 
+    description: "Managed participant databases, coordinated committee members, and successfully reached 90+ schools with 1,235 participants for a hybrid event." 
+  },
+  { 
+    company: "OSIS NFBS Serang", 
+    role: "Secretary of Sports Division", 
+    period: "Jul 2021 - Jan 2023", 
+    description: "Coordinated student sports activities, drafted division work programs, and provided comprehensive technical and administrative support for division operations." 
+  }
 ];
 
 function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; index: number }) {
@@ -129,7 +166,6 @@ function ProjectCard({ project, index }: { project: typeof featuredProjects[0]; 
     <motion.div
       initial={{ opacity: 0, y: 80, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      // once: false agar animasi berulang
       viewport={{ once: false, margin: "-100px" }}
       transition={{ duration: 1.2, ease: fluidEase }}
       className="grid md:grid-cols-2 gap-0 items-stretch"
@@ -185,29 +221,24 @@ function TimelineItem({ exp, index }: { exp: typeof experiences[0]; index: numbe
     <motion.div
       initial={{ opacity: 0, y: 50, filter: "blur(4px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-      // once: false agar animasi masuk/keluar berulang
       viewport={{ once: false, margin: "-100px" }}
       transition={{ duration: 1.2, ease: fluidEase }}
       className="relative flex md:grid md:grid-cols-[1fr_auto_1fr] items-start md:items-center gap-0 md:gap-8 py-6 md:py-10"
     >
-      {/* KIRI: Sembunyi di mobile. Muncul di desktop jika index Genap (isLeft) */}
       <div className={`hidden md:block text-right ${!isLeft ? "opacity-0 invisible" : ""}`}>
         <ExperienceContent />
       </div>
 
-      {/* TENGAH: Titik Node */}
       <div className="absolute left-0 md:relative md:left-auto flex justify-center items-center w-8 z-10 top-[28px] md:top-auto">
         <motion.div
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
-          // Titik ini juga diset once: false agar ikut berulang
           viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.1, ease: fluidEase }}
           className="w-4 h-4 rounded-full bg-[#050505] border-[3px] border-[#90ff4f] shadow-[0_0_15px_rgba(144,255,79,0.8)]"
         />
       </div>
 
-      {/* KANAN: Selalu muncul di mobile (pl-12). Di desktop muncul jika index Ganjil (!isLeft) */}
       <div className={`pl-12 md:pl-0 w-full text-left ${isLeft ? "md:opacity-0 md:invisible" : ""}`}>
         <ExperienceContent />
       </div>
@@ -218,27 +249,22 @@ function TimelineItem({ exp, index }: { exp: typeof experiences[0]; index: numbe
 function JourneyTimeline({ experiences }: { experiences: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Mengambil progres scroll elemen container ini
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"], 
   });
 
-  // Mengubah scroll progress (0 - 1) menjadi tinggi (0% - 100%)
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <div ref={containerRef} className="relative max-w-5xl mx-auto py-10">
-      {/* Garis Latar Belakang (Redup & Statis) */}
       <div className="absolute left-[15px] md:left-1/2 top-0 bottom-0 w-[2px] bg-gray-900 md:-translate-x-1/2 rounded-full" />
 
-      {/* Garis Isi (Hijau Menyala) Mengikuti Scroll */}
       <motion.div
         style={{ height: lineHeight }}
         className="absolute left-[15px] md:left-1/2 top-0 w-[2px] bg-[#90ff4f] md:-translate-x-1/2 origin-top shadow-[0_0_20px_rgba(144,255,79,0.6)] z-0 rounded-full"
       />
 
-      {/* Daftar Pengalaman */}
       <div className="relative z-10 flex flex-col">
         {experiences.map((exp, i) => (
           <TimelineItem key={i} exp={exp} index={i} />
@@ -275,7 +301,7 @@ export default function Home() {
       <div className="hidden md:flex flex-col gap-6 fixed left-8 top-1/2 -translate-y-1/2 z-40">
         {[
           { href: "https://linkedin.com/in/badar-baradja-5b1bb820a/", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></svg> },
-          { href: "https://instagram.com/badarbaradja_", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
+          { href: "https://instagram.com/badarbaraja", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg> },
           { href: "https://github.com", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg> },
         ].map((item, i) => (
           <motion.a key={i} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.4 + i * 0.1, duration: 1, ease: fluidEase }} href={item.href} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#90ff4f] hover:scale-125 transition-all duration-300">
@@ -303,7 +329,7 @@ export default function Home() {
           <RevealOnScroll delay={0.1}>
             <h2 className="text-3xl md:text-5xl lg:text-[3.5rem] font-black leading-[1.15] text-black">
               I'm a Telecommunication Engineering student passionate about{" "}
-              <em>frontend development</em>, combining strong IT experience and data insight to build engaging web experiences.
+              <em>frontend development</em>, combining strong engineering fundamentals with a high standard of modern, smooth UI/UX design to build engaging web experiences.
             </h2>
           </RevealOnScroll>
           <RevealOnScroll delay={0.2} className="mt-16">
