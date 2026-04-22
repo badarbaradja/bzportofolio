@@ -92,7 +92,7 @@ export default function AboutPage() {
               OVER 2 YEARS OF <br />
               <span className="text-gray-600">EXPERIENCE,</span> CONTINUOUSLY <br />
               PUSHING BOUNDARIES IN <br />
-              <span className="text-[#90ff4f]">DEVELOPMENT & DATA.</span>
+              <span className="text-[#90ff4f]">FRONTEND & WEBGIS.</span>
             </motion.h1>
           </div>
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
             transition={{ duration: 1.2, delay: 0.2, ease: fluidEase }}
             className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed uppercase tracking-widest font-medium"
           >
-            ENTHUSIASTIC ABOUT CRAFTING SEAMLESS EXPERIENCES THAT COMBINE GEOSPATIAL DATA,
+            ENTHUSIASTIC ABOUT CRAFTING SEAMLESS EXPERIENCES THAT COMBINE GEOSPATIAL TECHNOLOGY,
             SYSTEM AUTOMATION, AND MODERN WEB TECHNOLOGIES.
           </motion.p>
         </div>
@@ -116,12 +116,6 @@ export default function AboutPage() {
           {/* Kiri: Foto Profile */}
           <RevealOnScroll>
             <div className="relative group w-full max-w-md mx-auto lg:max-w-none">
-              {/* 💡 CARA GANTI FOTO:
-                1. Masukkan fotomu ke folder `public/`
-                2. Beri nama file fotomu `profile.jpg`
-                3. Pastikan resolusinya cukup bagus (misal: 800x1000)
-                4. Ubah `aspect-[4/5]` jadi `aspect-square` di bawah ini jika fotomu rasio 1:1 (kotak) 
-              */}
               <div className="w-full aspect-[4/5] bg-gray-900 overflow-hidden flex items-center justify-center transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1] rounded-sm">
                 <motion.img
                   whileHover={{ scale: 1.05 }}
@@ -148,7 +142,7 @@ export default function AboutPage() {
           <div className="flex flex-col justify-center h-full pt-4 lg:pt-0">
             <RevealOnScroll delay={0.15}>
               <h2 className="text-2xl md:text-4xl lg:text-5xl font-black leading-[1.2] md:leading-[1.1] mb-12 md:mb-16 uppercase tracking-tighter">
-                "I build data-driven web applications by combining geospatial technology with
+                "I build interactive web applications by combining geospatial technology with
                 clean, performant frontend code to deliver <span className="text-[#90ff4f]">meaningful results.</span>"
               </h2>
             </RevealOnScroll>

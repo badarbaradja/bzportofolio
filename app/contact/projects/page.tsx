@@ -30,7 +30,15 @@ const allProjects = [
     description: "Co-developed an ERP-like laboratory management system to track projects for 78 research assistants, and engineered a digital repository to manage WebGIS (Jakarta & Bandung) and AR project assets.",
     link: "#",
     image: "/projects/mbc_erp.png",
-  }
+  },
+  {
+    id: "04",
+    title: "WebGis Bandung",
+    tags: ["WebGIS", "Navigation"],
+    description: "Conducted GIS research and developed a WebGIS application for Bandung city, providing interactive maps and navigation features to enhance tourism experiences.",
+    link: "#",
+    image: "/projects/webgis_bandung.png",
+  },
 ];
 
 export default function ProjectsPage() {

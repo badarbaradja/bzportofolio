@@ -80,7 +80,7 @@ export default function ContactPage() {
             transition={{ duration: 1.2, delay: 0.2, ease: fluidEase }}
             className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed uppercase tracking-widest font-medium"
           >
-            I'M CURRENTLY A STUDENT EXPLORING OPPORTUNITIES IN WEB DEVELOPMENT, WEBGIS, AND DATA ENGINEERING. 
+            I'M CURRENTLY A STUDENT EXPLORING OPPORTUNITIES IN WEB DEVELOPMENT, WEBGIS, AND SYSTEM AUTOMATION. 
             IF YOU HAVE ANY PROJECTS, INTERNSHIPS, OR COLLABORATION IDEAS, I'D LOVE TO CONNECT.
           </motion.p>
         </div>
@@ -99,7 +99,7 @@ export default function ContactPage() {
                 <div>
                   <div className="text-[10px] font-black tracking-[0.2em] text-gray-500 mb-2">EMAIL</div>
                   <a href="mailto:badarbaradja112@gmail.com" className="text-lg md:text-xl font-black hover:text-[#90ff4f] transition-colors duration-300">
-                    badarbaradja112@gmail.com
+                    Badarbaradja112@gmail.com
                   </a>
                 </div>
                 <div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                 {[
                   { label: "LINKEDIN", href: "https://linkedin.com/in/badar-baradja-5b1bb820a/" },
                   { label: "GITHUB", href: "https://github.com" },
-                  { label: "INSTAGRAM", href: "https://instagram.com/badarbaradja_" },
+                  { label: "INSTAGRAM", href: "https://instagram.com/badarbaraja" },
                 ].map((social) => (
                   <a
                     key={social.label}

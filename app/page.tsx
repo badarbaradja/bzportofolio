@@ -82,16 +82,16 @@ const featuredProjects = [
     title: "ThinkSpace Platform",
     tags: "STARTUP INCUBATION, BUSINESS MODEL",
     description: "Actively participating in the Bandung Techno Park (BTP) startup incubation program at Telkom University to develop business and technical models.",
-    link: "/projects",
-    image: "/projects/thinkspace.png",
+    link: "https://thinkspace-mhbdlpts8-badars-projects-de5bd3fa.vercel.app/",
+    image: "thinkspace.png",
   },
   {
     id: "02",
     title: "Lab Management Dashboard Electrical Circuit Lab",
     tags: "WEB DEVELOPMENT, AUTOMATION",
     description: "Engineered an administrative dashboard automating camera-based attendance, salary slips, and penalty calculations for 49 assistants.",
-    link: "/projects",
-    image: "/projects/electrical_lab.png",
+    link: "https://lab-rl-b5rsx1691-badars-projects-de5bd3fa.vercel.app/",
+    image: "electrical_lab.PNG",
   },
   {
     id: "03",
@@ -99,7 +99,15 @@ const featuredProjects = [
     tags: "WEBGIS, ERP SYSTEM",
     description: "Co-developed an ERP-like laboratory management system to streamline operations, project tracking, and assignments for 78 research assistants.",
     link: "/projects",
-    image: "/projects/mbc_erp.png",
+    image: "mbc_erp.png",
+  },
+  {
+    id: "04",
+    title: "WebGis Bandung",
+    tags: "WEBGIS, Navigation",
+    description: "Conducted GIS research and developed a WebGIS application for Bandung city, providing interactive maps and navigation features to enhance tourism experiences.",
+    link: "https://badarbaradja.github.io/percobaan_webgis/",
+    image: "webgis_bandung.png",
   },
 ];
 
