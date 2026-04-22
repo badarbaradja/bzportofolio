@@ -84,10 +84,15 @@ export default function ContactPage() {
               initial={{ y: "100%", opacity: 0, filter: "blur(8px)" }}
               animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 1.2, delay: 0.1, ease: fluidEase }}
-              className="text-[14vw] md:text-[9vw] lg:text-[8rem] xl:text-[10rem] font-black uppercase leading-[0.85] tracking-tighter"
+              className="text-[13vw] sm:text-[11vw] md:text-[8vw] xl:text-[9rem] font-black uppercase leading-[0.9] tracking-tighter"
             >
               OPEN TO <br />
-              <span className="text-gray-600">COLLABORATION</span>
+              {/* Mobile: pecah jadi 2 baris */}
+              <span className="text-gray-600 md:hidden">
+                COLLAB<br />ORATION
+              </span>
+              {/* Desktop: satu baris */}
+              <span className="text-gray-600 hidden md:inline">COLLABORATION</span>
               <span className="text-[#90ff4f]">.</span>
             </motion.h1>
           </div>

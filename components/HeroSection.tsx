@@ -95,9 +95,9 @@ export default function HeroSection() {
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
-              className="block text-white text-5xl sm:text-6xl md:text-7xl leading-tight"
+              className="block text-white text-[8vw] sm:text-5xl md:text-7xl leading-tight"
             >
-              BUILDING
+              CONNECTING
             </motion.span>
           </div>
 
@@ -105,9 +105,9 @@ export default function HeroSection() {
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
-              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
+              className="block text-[#90ff4f] text-[11vw] sm:text-6xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
             >
-              DATA-DRIVEN
+              IDEAS INTO
             </motion.span>
           </div>
 
@@ -115,9 +115,9 @@ export default function HeroSection() {
           <div className="overflow-hidden">
             <motion.span
               variants={wordVariants}
-              className="block text-[#90ff4f] text-6xl sm:text-7xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
+              className="block text-[#90ff4f] text-[11vw] sm:text-6xl md:text-[9rem] leading-[0.88] hover:drop-shadow-[0_0_25px_rgba(144,255,79,0.6)] transition-all duration-500"
             >
-              SOLUTIONS
+              EXPERIENCES
             </motion.span>
           </div>
         </motion.h1>
@@ -133,10 +133,12 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-10 text-gray-400 text-sm md:text-base max-w-xl mx-auto font-medium leading-relaxed"
+          className="mt-10 text-white text-sm md:text-base max-w-xl mx-auto font-semibold leading-relaxed"
         >
-          Telecommunication Engineering student specializing in WebGIS development,
-          system automation, and data-driven solutions.
+          Telecommunication Engineering student with a passion for{" "}
+          <span className="bg-[#90ff4f] text-black px-1 rounded-sm">frontend development,</span>{" "}
+          focused on building modern, smooth, and engaging{" "}
+          <span className="bg-[#90ff4f] text-black px-1 rounded-sm">web experiences.</span>
         </motion.p>
 
         {/* BUTTONS */}
