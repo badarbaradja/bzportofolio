@@ -112,59 +112,59 @@ const featuredProjects = [
 ];
 
 const experiences = [
-  { 
-    company: "MBC Laboratory", 
-    role: "Research Assistant", 
-    period: "Oct 2025 - Present", 
-    description: "Conducted GIS research, secured an HKI certificate, co-developed an ERP-like laboratory management system, and engineered a digital knowledge repository." 
+  {
+    company: "MBC Laboratory",
+    role: "Research Assistant",
+    period: "Oct 2025 - Present",
+    description: "Conducted GIS research, secured an HKI certificate, co-developed an ERP-like laboratory management system, and engineered a digital knowledge repository."
   },
-  { 
-    company: "Electrical Circuit Laboratory", 
-    role: "Practicum Assistant", 
-    period: "May 2025 - Present", 
-    description: "Mentored students, developed a comprehensive lab management website, and engineered an administrative dashboard replacing manual Google Forms operations." 
+  {
+    company: "Electrical Circuit Laboratory",
+    role: "Practicum Assistant",
+    period: "May 2025 - Present",
+    description: "Mentored students, developed a comprehensive lab management website, and engineered an administrative dashboard replacing manual Google Forms operations."
   },
-  { 
-    company: "Himpunan Mahasiswa Teknik Telekomunikasi (HMTT)", 
-    role: "Academic Expert Staff", 
-    period: "Jun 2025 - Dec 2025", 
-    description: "Contributed to academic development programs, facilitated academic discussions, and collaborated to execute faculty-level educational events." 
+  {
+    company: "Himpunan Mahasiswa Teknik Telekomunikasi (HMTT)",
+    role: "Academic Expert Staff",
+    period: "Jun 2025 - Dec 2025",
+    description: "Contributed to academic development programs, facilitated academic discussions, and collaborated to execute faculty-level educational events."
   },
-  { 
-    company: "Telecommunication Science Association (TOSCA)", 
-    role: "Deputy Chair", 
-    period: "May 2025 - Dec 2025", 
-    description: "Assisted in leading structural operations, coordinated the execution of division work programs, and evaluated organizational performance." 
+  {
+    company: "Telecommunication Science Association (TOSCA)",
+    role: "Deputy Chair",
+    period: "May 2025 - Dec 2025",
+    description: "Assisted in leading structural operations, coordinated the execution of division work programs, and evaluated organizational performance."
   },
-  { 
-    company: "GATHRAK", 
-    role: "Logistics Member", 
-    period: "Apr 2025 - Jun 2025", 
-    description: "Managed equipment requirements and collaborated with the PDD division to execute event decorations smoothly." 
+  {
+    company: "GATHRAK",
+    role: "Logistics Member",
+    period: "Apr 2025 - Jun 2025",
+    description: "Managed equipment requirements and collaborated with the PDD division to execute event decorations smoothly."
   },
-  { 
-    company: "PRADA", 
-    role: "Public Relations Member", 
-    period: "Jan 2025 - Mar 2025", 
-    description: "Operated within the Donaturial division to establish external communications and successfully raised funds for Ramadan 2025 events." 
+  {
+    company: "PRADA",
+    role: "Public Relations Member",
+    period: "Jan 2025 - Mar 2025",
+    description: "Operated within the Donaturial division to establish external communications and successfully raised funds for Ramadan 2025 events."
   },
-  { 
-    company: "PT Dabi Air Nusantara", 
-    role: "Intern", 
-    period: "Jun 2024 - Sep 2024", 
-    description: "Managed spare parts data, developed an automated maintenance tracking system, and created a monitoring system for crew licenses." 
+  {
+    company: "PT Dabi Air Nusantara",
+    role: "Intern",
+    period: "Jun 2024 - Sep 2024",
+    description: "Managed spare parts data, developed an automated maintenance tracking system, and created a monitoring system for crew licenses."
   },
-  { 
-    company: "HSC 2022", 
-    role: "Secretary of Public Relations", 
-    period: "Aug 2021 - Dec 2022", 
-    description: "Managed participant databases, coordinated committee members, and successfully reached 90+ schools with 1,235 participants for a hybrid event." 
+  {
+    company: "HSC 2022",
+    role: "Secretary of Public Relations",
+    period: "Aug 2021 - Dec 2022",
+    description: "Managed participant databases, coordinated committee members, and successfully reached 90+ schools with 1,235 participants for a hybrid event."
   },
-  { 
-    company: "OSIS NFBS Serang", 
-    role: "Secretary of Sports Division", 
-    period: "Jul 2021 - Jan 2023", 
-    description: "Coordinated student sports activities, drafted division work programs, and provided comprehensive technical and administrative support for division operations." 
+  {
+    company: "OSIS NFBS Serang",
+    role: "Secretary of Sports Division",
+    period: "Jul 2021 - Jan 2023",
+    description: "Coordinated student sports activities, drafted division work programs, and provided comprehensive technical and administrative support for division operations."
   }
 ];
 
@@ -256,10 +256,10 @@ function TimelineItem({ exp, index }: { exp: typeof experiences[0]; index: numbe
 
 function JourneyTimeline({ experiences }: { experiences: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"], 
+    offset: ["start center", "end center"],
   });
 
   const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -383,9 +383,9 @@ export default function Home() {
             <h2 className="text-5xl md:text-7xl font-black text-white">MY JOURNEY</h2>
             <p className="text-gray-500 text-sm mt-4">Explore my professional journey and the technologies that define my craft</p>
           </RevealOnScroll>
-          
+
           <JourneyTimeline experiences={experiences} />
-          
+
         </div>
       </section>
 
