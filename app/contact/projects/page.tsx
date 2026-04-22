@@ -12,32 +12,32 @@ const allProjects = [
     title: "ThinkSpace Platform",
     tags: ["Startup Incubation", "Business Model"],
     description: "Developing business and technical models through the Bandung Techno Park (BTP) startup incubation program, designed to support the operations of around 50 cafes in the Buah Batu area.",
-    link: "#",
-    image: "/projects/thinkspace.png",
+    link: "https://thinkspace-mhbdlpts8-badars-projects-de5bd3fa.vercel.app/",
+    image: "/thinkspace.png",
   },
   {
     id: "02",
     title: "Lab Management Dashboard Electrical Circuit Lab",
     tags: ["Web Development", "Automation"],
     description: "Digitized operations and centralized learning materials, featuring an administrative dashboard that automates camera-based attendance, salary slips, and penalty calculations for 49 practicum assistants.",
-    link: "#",
-    image: "/projects/electrical_lab.png",
+    link: "https://lab-rl-b5rsx1691-badars-projects-de5bd3fa.vercel.app/",
+    image: "/electrical_lab.png",
   },
   {
     id: "03",
     title: "ERP MBC Lab Repository",
     tags: ["WebGIS", "ERP System"],
     description: "Co-developed an ERP-like laboratory management system to track projects for 78 research assistants, and engineered a digital repository to manage WebGIS (Jakarta & Bandung) and AR project assets.",
-    link: "#",
-    image: "/projects/mbc_erp.png",
+    link: "https://github.com/badarbaradja/mbc_erp",
+    image: "/mbc_erp.png",
   },
   {
     id: "04",
     title: "WebGis Bandung",
     tags: ["WebGIS", "Navigation"],
     description: "Conducted GIS research and developed a WebGIS application for Bandung city, providing interactive maps and navigation features to enhance tourism experiences.",
-    link: "#",
-    image: "/projects/webgis_bandung.png",
+    link: "https://badarbaradja.github.io/percobaan_webgis/",
+    image: "/webgis_bandung.png",
   },
 ];
 
@@ -89,7 +89,7 @@ export default function ProjectsPage() {
               className="flex items-center gap-4 text-right"
             >
               <span className="text-6xl md:text-7xl font-black text-gray-800">{allProjects.length}</span>
-              <span className="text-[10px] tracking-widest text-gray-500 font-black text-left leading-tight">TOTAL<br/>PROJECTS</span>
+              <span className="text-[10px] tracking-widest text-gray-500 font-black text-left leading-tight">TOTAL<br />PROJECTS</span>
             </motion.div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function ProjectsPage() {
                   transition={{ duration: 1.2, ease: fluidEase }}
                   className="group border-b border-gray-900 py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center"
                 >
-                  
+
                   {/* BLOK GAMBAR */}
                   <div className={isEven ? "lg:order-2" : "lg:order-1"}>
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full overflow-hidden rounded-xl bg-gray-900 aspect-[4/3] md:aspect-video lg:aspect-[4/3]">
@@ -135,7 +135,7 @@ export default function ProjectsPage() {
 
                   {/* BLOK KONTEN */}
                   <div className={`flex flex-col justify-center ${isEven ? "lg:order-1" : "lg:order-2"}`}>
-                    
+
                     {/* Header: Angka Raksasa & Tags */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8 lg:mb-12">
                       <div className="text-6xl md:text-8xl font-black leading-none text-gray-800 group-hover:text-white transition-colors duration-500">
@@ -175,7 +175,7 @@ export default function ProjectsPage() {
                         </span>
                       </a>
                     </div>
-                    
+
                   </div>
 
                 </motion.div>

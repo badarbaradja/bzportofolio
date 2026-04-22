@@ -36,11 +36,29 @@ export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
-    setSent(true);
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("https://formspree.io/f/myklnayv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        setSent(true);
+      } else {
+        setError("Something went wrong. Please try again or email me directly.");
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,7 +98,7 @@ export default function ContactPage() {
             transition={{ duration: 1.2, delay: 0.2, ease: fluidEase }}
             className="text-gray-400 text-sm md:text-base max-w-2xl leading-relaxed uppercase tracking-widest font-medium"
           >
-            I'M CURRENTLY A STUDENT EXPLORING OPPORTUNITIES IN WEB DEVELOPMENT, WEBGIS, AND SYSTEM AUTOMATION. 
+            I'M CURRENTLY A STUDENT EXPLORING OPPORTUNITIES IN WEB DEVELOPMENT, WEBGIS, AND SYSTEM AUTOMATION.
             IF YOU HAVE ANY PROJECTS, INTERNSHIPS, OR COLLABORATION IDEAS, I'D LOVE TO CONNECT.
           </motion.p>
         </div>
@@ -93,7 +111,7 @@ export default function ContactPage() {
           {/* Kiri: Contact Info & Socials */}
           <div className="flex flex-col h-full">
             <RevealOnScroll>
-              <h2 className="text-4xl md:text-5xl font-black mb-12 tracking-tighter uppercase">Contact <br/><span className="text-gray-600">Details</span></h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-12 tracking-tighter uppercase">Contact <br /><span className="text-gray-600">Details</span></h2>
 
               <div className="space-y-10 mb-16 border-l-2 border-[#90ff4f] pl-6">
                 <div>
@@ -137,7 +155,7 @@ export default function ContactPage() {
 
           {/* Kanan: Form */}
           <RevealOnScroll delay={0.2} className="bg-[#0a0a0a] border border-gray-900 p-8 md:p-16 rounded-3xl">
-            <h2 className="text-4xl md:text-5xl font-black mb-12 tracking-tighter uppercase">Send a <br/><span className="text-[#90ff4f]">Message</span></h2>
+            <h2 className="text-4xl md:text-5xl font-black mb-12 tracking-tighter uppercase">Send a <br /><span className="text-[#90ff4f]">Message</span></h2>
 
             {sent ? (
               <motion.div
@@ -160,7 +178,7 @@ export default function ContactPage() {
                     placeholder="ENTER YOUR NAME"
                   />
                 </div>
-                
+
                 <div className="relative group/input">
                   <label className="text-[10px] font-black tracking-[0.2em] text-gray-500 block mb-4 group-focus-within/input:text-[#90ff4f] transition-colors duration-300">02 / EMAIL</label>
                   <input
@@ -171,7 +189,7 @@ export default function ContactPage() {
                     placeholder="YOUR@EMAIL.COM"
                   />
                 </div>
-                
+
                 <div className="relative group/input">
                   <label className="text-[10px] font-black tracking-[0.2em] text-gray-500 block mb-4 group-focus-within/input:text-[#90ff4f] transition-colors duration-300">03 / MESSAGE</label>
                   <textarea
@@ -182,18 +200,37 @@ export default function ContactPage() {
                     placeholder="TELL ME ABOUT YOUR PROJECT..."
                   />
                 </div>
-                
+
+                {error && (
+                  <p className="text-red-400 text-xs font-black tracking-widest uppercase text-center -mb-4">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="group relative w-full inline-flex items-center justify-center px-12 py-6 bg-white text-black font-black tracking-widest text-xs uppercase overflow-hidden rounded-xl mt-8"
+                  disabled={loading}
+                  className="group relative w-full inline-flex items-center justify-center px-12 py-6 bg-white text-black font-black tracking-widest text-xs uppercase overflow-hidden rounded-xl mt-8 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10 group-hover:text-black transition-colors duration-500 flex items-center gap-4">
-                    SEND MESSAGE
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
-                      <line x1="5" y1="19" x2="19" y2="5" /><polyline points="9 5 19 5 19 15" />
-                    </svg>
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                          <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                          <path d="M12 2a10 10 0 0 1 10 10" />
+                        </svg>
+                        SENDING...
+                      </>
+                    ) : (
+                      <>
+                        SEND MESSAGE
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                          <line x1="5" y1="19" x2="19" y2="5" /><polyline points="9 5 19 5 19 15" />
+                        </svg>
+                      </>
+                    )}
                   </span>
-                  <div className="absolute inset-0 h-full w-full bg-[#90ff4f] scale-y-0 origin-bottom transition-transform duration-500 group-hover:scale-y-100 ease-[0.22,1,0.36,1]"></div>
+                  {!loading && <div className="absolute inset-0 h-full w-full bg-[#90ff4f] scale-y-0 origin-bottom transition-transform duration-500 group-hover:scale-y-100 ease-[0.22,1,0.36,1]"></div>}
                 </button>
               </form>
             )}
