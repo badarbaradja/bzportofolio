@@ -116,19 +116,14 @@ export default function ProjectsPage() {
                   {/* BLOK GAMBAR */}
                   <div className={isEven ? "lg:order-2" : "lg:order-1"}>
                     <a href={project.link} target="_blank" rel="noopener noreferrer" className="block w-full overflow-hidden rounded-xl bg-gray-900 aspect-[4/3] md:aspect-video lg:aspect-[4/3]">
-                      <div className="w-full h-full transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1]">
+                      <div className="relative w-full h-full transform transition-transform duration-[1.5s] ease-[0.22,1,0.36,1]">
                         <motion.img
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 1.5, ease: fluidEase }}
                           src={project.image}
                           alt={project.title}
                           className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                         />
-                        {/* Placeholder teks jika gambar tidak ada */}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10 text-gray-700 text-xs font-black tracking-widest uppercase">
-                          {project.image}
-                        </div>
                       </div>
                     </a>
                   </div>
