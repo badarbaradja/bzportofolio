@@ -5,9 +5,23 @@ import Footer from "@/components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export const metadata: Metadata = {
-  title: "Badar Zaki Baradja | Portfolio",
+  title: "Badar Zaki Baradja | Fullstack Web Developer & WebGIS",
   description:
-    "Telecommunication Engineering student specializing in WebGIS development, system automation, and data-driven solutions.",
+    "Portofolio Badar Zaki Baradja, mahasiswa Telecommunication Engineering Telkom University. Berfokus pada pengembangan Fullstack Web, WebGIS, Next.js, React, integrasi Supabase, dan system automation.",
+  keywords: [
+    "Badar Zaki Baradja",
+    "Telecommunication Engineering",
+    "Telkom University",
+    "Fullstack Developer",
+    "Backend Developer",
+    "Frontend Developer",
+    "WebGIS Developer",
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    "Supabase",
+    "System Automation"
+  ],
 };
 
 export default function RootLayout({
